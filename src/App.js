@@ -40,18 +40,18 @@ const styles = theme => ({
         },
     },
     content: {
-        marginTop: "75px",
+        marginTop: "65px",
         width: '100%',
-        position: 'sticky',
+        height: '100%',
+        position: 'relative',
     },
     footer: {
         width: '100%',
-        position: 'sticky',
+        position: 'fixed',
     },
     footerGrid: {
         backgroundColor: 'rgba(0, 0, 0, 0.15)',
         padding: '10px 0px 10px 0px',
-        marginTop: '100px'
     },
 });
 
