@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
-import {AppBar, Typography, Toolbar, Tabs, Tab, Menu, MenuItem, IconButton, Grid}from "@material-ui/core/";
-import withStyles from "@material-ui/core/es/styles/withStyles";
-import MenuIcon from '@material-ui/icons/Menu';
+import {AppBar, Typography, Toolbar, Grid, withStyles}from "@material-ui/core/";
 import {Link} from "react-router-dom/";
-import Main from "./components/main";
+import MapView from "./components/mapView";
 
 const styles = theme => ({
     root: {
@@ -47,18 +45,18 @@ const styles = theme => ({
     },
     footer: {
         width: '100%',
-        position: 'fixed',
+        position: 'sticky',
     },
     footerGrid: {
         backgroundColor: 'rgba(0, 0, 0, 0.15)',
-        padding: '10px 0px 10px 0px',
+        padding: '25px 0px 25px 0px',
     },
 });
 
 const Home = props => <Link to="/" {...props} />;
-const Map = props => <Link to="/mapView" {...props} />;
-const AnalyseData = props => <Link to="/analyseData" {...props} />;
-const Faq = props => <Link to="/faq" {...props} />;
+// const Map = props => <Link to="/mapView" {...props} />;
+// const AnalyseData = props => <Link to="/analyseData" {...props} />;
+// const Faq = props => <Link to="/faq" {...props} />;
 
 class App extends React.Component {
     state = {
@@ -80,25 +78,25 @@ class App extends React.Component {
     };
 
     render() {
-        const {mobileMoreAnchorEl } = this.state;
+        // const {mobileMoreAnchorEl } = this.state;
         const { classes } = this.props;
-        const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-        const { value } = this.state;
+        // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+        // const { value } = this.state;
         const currentYear = new Date().getFullYear();
 
-        const renderMobileMenu =
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-            transformOrigin={{vertical: 'top', horizontal: 'right'}}
-            open={isMobileMenuOpen}
-            onClose={this.handleMobileMenuClose}
-        >
-            <MenuItem component={Home}>Home</MenuItem>
-            <MenuItem component={Map}>Map</MenuItem>
-            <MenuItem component={AnalyseData}>Analyse Data </MenuItem>
-            <MenuItem component={Faq}>FAQ</MenuItem>
-        </Menu>;
+        // const renderMobileMenu =
+        // <Menu
+        //     anchorEl={mobileMoreAnchorEl}
+        //     anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+        //     transformOrigin={{vertical: 'top', horizontal: 'right'}}
+        //     open={isMobileMenuOpen}
+        //     onClose={this.handleMobileMenuClose}
+        // >
+        //     <MenuItem component={Home}>Home</MenuItem>
+        //     <MenuItem component={Map}>Map</MenuItem>
+        //     <MenuItem component={AnalyseData}>Analyse Data </MenuItem>
+        //     <MenuItem component={Faq}>FAQ</MenuItem>
+        // </Menu>;
 
         return (
             <div className={classes.root}>
@@ -108,25 +106,25 @@ class App extends React.Component {
                             PEDESTRIAN ANALYTICS
                         </Typography>
                         <div className={classes.grow} />
-                        <div className={classes.sectionDesktop}>
-                            <Tabs value={value}  indicatorColor="primary"
-                                  textColor="inherit" onChange={this.handleChange}>
-                                <Tab label="Home" component={Home}/>
-                                <Tab label="Map View" component={Map}/>
-                                <Tab label="Analyse Data" component={AnalyseData}/>
-                                <Tab label="FAQ" component={Faq}/>
-                            </Tabs>
-                        </div>
-                        <div className={classes.sectionMobile}>
-                            <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                                <MenuIcon />
-                            </IconButton>
-                        </div>
+                        {/*<div className={classes.sectionDesktop}>*/}
+                            {/*<Tabs value={value}  indicatorColor="primary"*/}
+                                  {/*textColor="inherit" onChange={this.handleChange}>*/}
+                                {/*<Tab label="Home" component={Home}/>*/}
+                                {/*<Tab label="Map View" component={Map}/>*/}
+                                {/*<Tab label="Analyse Data" component={AnalyseData}/>*/}
+                                {/*<Tab label="FAQ" component={Faq}/>*/}
+                            {/*</Tabs>*/}
+                        {/*</div>*/}
+                        {/*<div className={classes.sectionMobile}>*/}
+                            {/*<IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">*/}
+                                {/*<MenuIcon />*/}
+                            {/*</IconButton>*/}
+                        {/*</div>*/}
                     </Toolbar>
                 </AppBar>
 
                 <div className={classes.content}>
-                    <Main/>
+                    <MapView/>
                 </div>
 
                 <div className={classes.footer}>
@@ -138,10 +136,18 @@ class App extends React.Component {
                             color={"textPrimary"}
                         >
                             © {currentYear} Japan Patel
+                        </Typography><br/>
+                        <Typography
+                            variant="subheading"
+                            component={'span'}
+                            align={"center"}
+                            color={"textPrimary"}
+                        >
+                            created as a part of Cloud Computing Assignment 2
                         </Typography>
                     </Grid>
                 </div>
-                {renderMobileMenu}
+                {/*{renderMobileMenu}*/}
             </div>
         );
     }
