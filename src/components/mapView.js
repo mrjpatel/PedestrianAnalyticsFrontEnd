@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton/IconButton";
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 
-class MapView extends Component{
+class MapView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -32,11 +32,11 @@ class MapView extends Component{
         this.onMapClick = this.onMapClick.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.PlacesList();
     }
 
-    PlacesList(){
+    PlacesList() {
         fetch('https://m3tco48zn7.execute-api.us-east-1.amazonaws.com/deploy')
             .then((response) => response.json())
             .then((responseJson) => {
@@ -59,10 +59,10 @@ class MapView extends Component{
 
     };
 
-    getEstimatedPeds(id){
+    getEstimatedPeds(id) {
         let query = "sensor_id=" + id;
         let api = "https://0w1020xhl0.execute-api.us-east-1.amazonaws.com/deploy?string=" + query;
-        fetch(api,{
+        fetch(api, {
             method: 'GET',
             mode: "cors",
             redirect: 'follow',
@@ -72,7 +72,6 @@ class MapView extends Component{
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({currentpeds: responseJson})
             });
     }
@@ -80,7 +79,7 @@ class MapView extends Component{
     getPedestrianData(id) {
         let query = "sensor_id=" + id;
         let api = "https://g9lhrrv8k9.execute-api.us-east-1.amazonaws.com/volumesdeploy?string=" + query;
-        fetch(api,{
+        fetch(api, {
             method: 'GET',
             mode: "cors",
             redirect: 'follow',
@@ -90,17 +89,15 @@ class MapView extends Component{
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({chartData: responseJson});
-                console.log(this.state.chartData);
                 let totalYearlyPeds = 0;
                 let maxValue = 0;
                 let months = ['January', 'February', 'March', 'April', 'May', 'June',
                     'July', 'August', 'September', 'October', 'November', 'December'];
                 let popularMonth = "";
-                for(let i = 0; i < responseJson.length; i++){
+                for (let i = 0; i < responseJson.length; i++) {
                     totalYearlyPeds = totalYearlyPeds + parseInt(responseJson[i], 10);
-                    if(parseInt(maxValue, 10) < parseInt(responseJson[i], 10)){
+                    if (parseInt(maxValue, 10) < parseInt(responseJson[i], 10)) {
                         maxValue = parseInt(responseJson[i], 10);
                         popularMonth = months[i];
                     }
@@ -109,14 +106,14 @@ class MapView extends Component{
                 this.setState({popularmonth: popularMonth});
                 this.setState({total: totalYearlyPeds});
                 this.setState({
-                    lineChart:{
+                    lineChart: {
                         labels: ['January', 'February', 'March', 'April', 'May', 'June',
                             'July', 'August', 'September', 'October', 'November', 'December'],
                         datasets: [
                             {
                                 label: 'Pedestrian',
                                 data: responseJson,
-                                backgroundColor:[
+                                backgroundColor: [
                                     '#ff6384'
                                 ]
                             }
@@ -126,10 +123,10 @@ class MapView extends Component{
             });
     };
 
-    getEveningData(id){
+    getEveningData(id) {
         let query = "sensor_id=" + id;
         let api = "https://j8pjoi32qg.execute-api.us-east-1.amazonaws.com/deploy?string=" + query;
-        fetch(api,{
+        fetch(api, {
             method: 'GET',
             mode: "cors",
             redirect: 'follow',
@@ -139,17 +136,15 @@ class MapView extends Component{
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({evechartData: responseJson});
-                console.log(this.state.evechartData);
                 this.setState({
-                    evebarChart:{
+                    evebarChart: {
                         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                         datasets: [
                             {
                                 label: 'Average Pedestrian',
                                 data: responseJson,
-                                backgroundColor:[
+                                backgroundColor: [
                                     'rgba(54, 162, 235, 0.5)',
                                     'rgba(54, 162, 235, 0.5)',
                                     'rgba(54, 162, 235, 0.5)',
@@ -165,10 +160,10 @@ class MapView extends Component{
             });
     };
 
-    getMorningData(id){
+    getMorningData(id) {
         let query = "sensor_id=" + id;
         let api = "https://mkchhb14nc.execute-api.us-east-1.amazonaws.com/deploy?string=" + query;
-        fetch(api,{
+        fetch(api, {
             method: 'GET',
             mode: "cors",
             redirect: 'follow',
@@ -178,17 +173,15 @@ class MapView extends Component{
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({morchartData: responseJson});
-                console.log(this.state.morchartData);
                 this.setState({
-                    morbarChart:{
+                    morbarChart: {
                         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
                         datasets: [
                             {
                                 label: 'Average Pedestrian',
                                 data: responseJson,
-                                backgroundColor:[
+                                backgroundColor: [
                                     'rgba(75, 192, 192, 0.5)',
                                     'rgba(75, 192, 192, 0.5)',
                                     'rgba(75, 192, 192, 0.5)',
@@ -226,19 +219,21 @@ class MapView extends Component{
             height: '100%',
         };
 
-        const paper1={
+        const paper1 = {
             position: 'relative',
             marginTop: 'auto',
             padding: '25px'
         };
 
-        const paper2={
-            width: '45%',
+        const paper2 = {
+            minHeight: '200px',
+            minWidth: '45%',
             padding: '20px',
-            margin: '20px'
+            marginLeft: '20px',
+            marginBottom: '40px'
         };
 
-        return(
+        return (
             <div style={root}>
                 <div style={style}>
                     <Map
@@ -255,11 +250,12 @@ class MapView extends Component{
                                     <Marker
                                         key={i}
                                         position={{lat: marker.latitude, lng: marker.longitude}}
-                                        name={marker.sensorloc}
-                                        id={marker.sensorid}
+                                        name={marker.sensor_description}
+                                        id={marker.sensor_id}
                                         latitude={marker.latitude}
                                         longitude={marker.longitude}
-                                        installdate={marker.xdate}
+                                        installdate={marker.installation_date.substr(0, 4)}
+                                        status={marker.status}
                                         onClick={this.onMarkerClick}
                                     />
                                 )
@@ -278,112 +274,114 @@ class MapView extends Component{
                     </Map>
                 </div>
                 <Paper style={paper1} elevation={0}>
-                    <Paper  square={true} elevation={0}>
-                       <Grid container spacing={16}>
-                            <Paper style={paper2}>
-                                <Typography variant = 'title'>
-                                    Sensor Name: {this.state.selectedPlace.name}
-                                </Typography>
-                                <br/><hr/><br/>
-                                <Typography variant = 'subheading'>
-                                    Sensor location: {this.state.selectedPlace.latitude}, {this.state.selectedPlace.longitude}
-                                </Typography>
-                                <Typography variant = 'subheading'>
-                                    Sensor Installed: {this.state.selectedPlace.installdate}
-                                </Typography>
-                                <br/><br/>
-                            </Paper>
-                            <Paper style={paper2}>
-                                <br/>
-                                <Typography color="textSecondary" variant={"subheading"}>
-                                    Estimated pedestrians at this hour
-                                    <Tooltip title="Calculated based on historical data. To give rough estimate.">
-                                        <IconButton aria-label="Info">
-                                            <InfoIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Typography>
-                                <Typography variant={"display4"}>
-                                    {this.state.currentpeds}
-                                </Typography>
-                            </Paper>
-                        </Grid>
-                        <Grid container spacing={16}>
-                            <Paper style={paper2}>
-                                <br/>
-                                <Typography color="textSecondary" variant={"subheading"}>
-                                    Total number of pedestrian in 2017.
-                                </Typography>
-                                <Typography variant={"display4"}>
-                                    {this.state.total}
-                                </Typography>
-                                <br/><br/><hr/><br/>
-                                <Typography color="textSecondary" variant={"subheading"}>
-                                    Most Popular month
-                                </Typography>
-                                <Typography variant={"display4"}>
-                                    {this.state.popularmonth}
-                                </Typography>
-                            </Paper>
-                            <Paper style={paper2}>
-                                <Line data={this.state.lineChart}
-                                      options={{
-                                          title:{
-                                              display: true,
-                                              text: 'Pedestrian Volume per Month',
-                                              fontSize:20
-                                          },
-                                          legend:{
-                                              display: false
-                                          }
-                                      }}
-                                />
-                            </Paper>
-                        </Grid>
-
-                        <Grid container spacing={16}>
-                            <Paper style={paper2}>
-                                <Bar data={this.state.evebarChart}
-                                      options={{
-                                          title:{
-                                              display: true,
-                                              text: 'Average Pedestrian per Hour(Evening Peak)',
-                                              fontSize:20
-                                          },
-                                          legend:{
-                                              display: false
-                                          }
-                                      }}
-                                />
-                            </Paper>
-                            <Paper style={paper2}>
-                                <Bar data={this.state.morbarChart}
-                                     options={{
-                                         title:{
-                                             display: true,
-                                             text: 'Average Pedestrian per Hour (Morning Peak)',
-                                             fontSize:20
-                                         },
-                                         legend:{
-                                             display: false
-                                         }
-                                     }}
-                                />
-                            </Paper>
-                        </Grid>
-
-                        <Grid container spacing={16}>
-                            <Paper style={paper2}>
-                                <br/>
-                                <Typography color="textSecondary" variant={"subheading"}>
-                                    Total number on sensors installed to this day.
-                                </Typography>
-                                <Typography variant={"display4"}>
-                                    {this.state.totalSensors}
-                                </Typography>
-                            </Paper>
-                        </Grid>
+                <Grid container spacing={16} item xs={12}>
+                    <Paper style={paper2}>
+                        <Typography variant='title'>
+                            Sensor Name: {this.state.selectedPlace.name}
+                        </Typography>
+                        <br/>
+                        <hr/>
+                        <br/>
+                        <Typography variant='subheading'>
+                            Sensor location: {this.state.selectedPlace.latitude}, {this.state.selectedPlace.longitude}
+                        </Typography>
+                        <Typography variant='subheading'>
+                            Sensor Installed: {this.state.selectedPlace.installdate}
+                        </Typography>
+                        <Typography variant='subheading'>
+                            Sensor Current Status: {this.state.selectedPlace.status === 'A' ? 'Active' : 'Inactive'}
+                        </Typography>
+                        <br/><br/>
                     </Paper>
+                    <Paper style={paper2}>
+                        <br/>
+                        <Typography color="textSecondary" variant={"subheading"}>
+                            Estimated pedestrians at this hour
+                            <Tooltip title="Calculated based on historical data. To give rough estimate.">
+                                <IconButton aria-label="Info">
+                                    <InfoIcon/>
+                                </IconButton>
+                            </Tooltip>
+                        </Typography>
+                        <Typography variant={"display3"}>
+                            {this.state.currentpeds}
+                        </Typography>
+                    </Paper>
+                </Grid>
+                 <Grid container spacing={16} item xs={12}>
+                    <Paper style={paper2}>
+                        <br/>
+                        <Typography color="textSecondary" variant={"subheading"}>
+                            Total number of pedestrian last year.
+                        </Typography>
+                        <Typography variant={"display3"}>
+                            {this.state.total}
+                        </Typography>
+                        <br/><br/><hr/><br/>
+                        <Typography color="textSecondary" variant={"subheading"}>
+                            Most Popular month
+                        </Typography>
+                        <Typography variant={"display3"}>
+                            {this.state.popularmonth}
+                        </Typography>
+                    </Paper>
+                    <Paper style={paper2}>
+                        <Line data={this.state.lineChart}
+                              options={{
+                                  title: {
+                                      display: true,
+                                      text: 'Pedestrian Volume per month',
+                                      fontSize: 20
+                                  },
+                                  legend: {
+                                      display: false
+                                  }
+                              }}
+                        />
+                    </Paper>
+                </Grid>
+                 <Grid container spacing={16} item xs={12}>
+                    <Paper style={paper2}>
+                        <Bar data={this.state.evebarChart}
+                             options={{
+                                 title:{
+                                     display: true,
+                                     text: 'Average Pedestrian per Hour(Evening Peak)',
+                                     fontSize:20
+                                 },
+                                 legend: {
+                                     display: false
+                                 }
+                             }}
+                        />
+                    </Paper>
+                    <Paper style={paper2}>
+                        <Bar data={this.state.morbarChart}
+                             options={{
+                                 title: {
+                                     display: true,
+                                     text: 'Average Pedestrian per hour (Morning Peak)',
+                                     fontSize: 20
+                                 },
+                                 legend: {
+                                     display: false
+                                 }
+                             }}
+                        />
+                    </Paper>
+                </Grid>
+
+                <Grid container spacing={16}>
+                    <Paper style={paper2}>
+                        <br/>
+                        <Typography color="textSecondary" variant={"subheading"}>
+                            Total number on sensors installed to this day.
+                        </Typography>
+                        <Typography variant={"display3"}>
+                            {this.state.totalSensors}
+                        </Typography>
+                    </Paper>
+                </Grid>
                 </Paper>
             </div>
         )
