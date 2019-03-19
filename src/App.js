@@ -137,14 +137,14 @@ class App extends React.Component {
                         >
                             © {currentYear} Japan Patel
                         </Typography><br/>
-                        <Typography
-                            variant="subheading"
-                            component={'span'}
-                            align={"center"}
-                            color={"textPrimary"}
-                        >
-                            created as a part of Cloud Computing Assignment 2
-                        </Typography>
+                        {/*<Typography*/}
+                            {/*variant="subheading"*/}
+                            {/*component={'span'}*/}
+                            {/*align={"center"}*/}
+                            {/*color={"textPrimary"}*/}
+                        {/*>*/}
+                            {/*created as a part of Cloud Computing Assignment 2*/}
+                        {/*</Typography>*/}
                     </Grid>
                 </div>
                 {/*{renderMobileMenu}*/}
